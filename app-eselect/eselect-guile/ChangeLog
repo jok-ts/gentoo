@@ -1,0 +1,32 @@
+# ChangeLog for app-eselect/eselect-guile
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+  25 Aug 2015; Barry Schwartz <sortsmill@crudfactory.com>
+  eselect-guile-2.0.ebuild, files/guile.eselect, files/guile.eselect.5:
+  Bug fix for the bug fix. This is really embarrassing. Also I forgot to note
+  in the previous entry that I removed the automatic cleanup upon removal of
+  this package, because doing that deletes your selection if this package is
+  reinstalled or upgraded. (This seems to happen with the lisp overlay’s
+  version.)
+
+  25 Aug 2015; Barry Schwartz <sortsmill@crudfactory.com>
+  eselect-guile-2.0.ebuild, files/guile.eselect, files/guile.eselect.5:
+  Primarily a fix in the detection of available implementations.
+
+  25 Aug 2015; Barry Schwartz <sortsmill@crudfactory.com>
+  eselect-guile-2.0.ebuild, files/guile.eselect:
+  Add an ‘unset’ action that helps avoid leaving a mess behind when this
+  package is uninstalled.
+
+  25 Aug 2015; Barry Schwartz <sortsmill@crudfactory.com> files/guile.eselect:
+  Now accept "ifunset" as an undocumented and deprecated synonym for
+  "--if-unset". This is for compatibility with the lisp overlay.
+
+*eselect-guile-2.0 (25 Aug 2015)
+
+  25 Aug 2015; Barry Schwartz <sortsmill@crudfactory.com>
+  +eselect-guile-2.0.ebuild, +files/guile.eselect, +files/guile.eselect.5,
+  +metadata.xml:
+  Initial version of a new guile.eselect.
+
