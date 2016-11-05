@@ -15,6 +15,7 @@ IUSE="debug debug-malloc +deprecated +networking +nls +regex +threads" # upstrea
 # emacs useflag removal not working
 
 RDEPEND="
+	app-eselect/eselect-guile
 	>=dev-libs/boehm-gc-7.0[threads?]
 	dev-libs/gmp:=
 	virtual/libffi
@@ -28,10 +29,12 @@ DEPEND="${RDEPEND}
 	sys-apps/texinfo
 	sys-devel/gettext"
 
-SLOT="12/22" # subslot is soname version
+SLOT="2/22" # subslot is soname version
 MAJOR="2.0"
 
 DOCS=( GUILE-VERSION HACKING README )
+
+PATCHES=( "${FILESDIR}/${PN}-2-snarf.patch" )
 
 src_prepare() {
 	default
@@ -43,10 +46,13 @@ src_configure() {
 	filter-flags -ftree-vectorize
 
 	econf \
+		--program-suffix="-${MAJOR}" \
+		--infodir="${EPREFIX}"/usr/share/info/guile-${MAJOR} \
 		--disable-error-on-warning \
 		--disable-dependency-tracking \
 		--disable-rpath \
 		--enable-posix \
+		--disable-static \
 		--without-libgmp-prefix \
 		--without-libiconv-prefix \
 		--without-libintl-prefix \
@@ -71,12 +77,16 @@ src_install() {
 	mv "${ED}"/usr/$(get_libdir)/libguile-*-gdb.scm "${ED}"/usr/share/gdb/auto-load/$(get_libdir) || die
 
 	# texmacs needs this, closing bug #23493
-	dodir /etc/env.d
-	echo "GUILE_LOAD_PATH=\"${EPREFIX}/usr/share/guile/${MAJOR}\"" > "${ED}"/etc/env.d/50guile || die
+	# dodir /etc/env.d
+	# echo "GUILE_LOAD_PATH=\"${EPREFIX}/usr/share/guile/${MAJOR}\"" > "${ED}"/etc/env.d/50guile || die
 
 	# necessary for registering slib, see bug 206896
 	keepdir /usr/share/guile/site
 
 	# Dark magic necessary for some deps
-	dosym libguile-2.0.so /usr/$(get_libdir)/libguile.so
+	# dosym libguile-2.0.so /usr/$(get_libdir)/libguile.so
+}
+
+pkg_postinst() {
+	eselect guile update --if-unset
 }
