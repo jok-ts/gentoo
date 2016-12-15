@@ -71,6 +71,9 @@ src_configure() {
 src_install() {
 	default
 
+	# Maybe there is a proper way to do this? Symlink handled by eselect
+	mv "${ED}"/usr/share/aclocal/guile.m4 "${ED}"/usr/share/aclocal/guile-${MAJOR}.m4 || die "rename of guile.m4 failed"
+
 	# From Novell
 	# 	https://bugzilla.novell.com/show_bug.cgi?id=874028#c0
 	dodir /usr/share/gdb/auto-load/$(get_libdir)
