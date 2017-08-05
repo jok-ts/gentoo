@@ -13,6 +13,9 @@ IUSE="debug debug-malloc +deprecated +networking +nls +regex +threads" # upstrea
 
 # emacs useflag removal not working
 
+# workaround for bug 596322
+REQUIRED_USE="regex"
+
 RDEPEND="
 	app-eselect/eselect-guile
 	>=dev-libs/boehm-gc-7.0[threads?]

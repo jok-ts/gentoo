@@ -1,0 +1,13 @@
+diff --git a/lily/pango-font.cc b/var/tmp/portage/media-sound/lilypond-2.19.65-r100/work/lilypond-2.19.65/lily/pango-font.cc
+index 1a80ee9..c5dcdf8 100644
+--- a/lily/pango-font.cc
++++ b/lily/pango-font.cc
+@@ -318,7 +318,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
+   pango_fc_font_unlock_face (fcfont);
+   pango_glyph_string_free (pgs);
+   pgs = 0;
+-  PangoFontDescription *descr = pango_font_describe (pa->font);
++  PangoFontDescription *descr = pango_context_get_font_description (context_);
+   Real size = pango_font_description_get_size (descr)
+               / (Real (PANGO_SCALE));
+ 
