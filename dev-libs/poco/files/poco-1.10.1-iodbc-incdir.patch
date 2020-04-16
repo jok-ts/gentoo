@@ -10,19 +10,3 @@ index 55318b5..634cc20 100644
  		/usr/local/include
  		/usr/local/odbc/include
  		/usr/local/iodbc/include
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b664afd..58f44e1 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -458,6 +458,11 @@ install(
- )
- 
- if(POCO_UNBUNDLED)
-+	if (WIN32)
-+		set(PocoConfigPackageLocation "cmake")
-+	else()
-+		set(PocoConfigPackageLocation "lib64/cmake/${PROJECT_NAME}")
-+	endif()
- 	install(FILES cmake/FindPCRE.cmake
- 			DESTINATION "${PocoConfigPackageLocation}")
- 	install(FILES cmake/V39/FindEXPAT.cmake
